@@ -17,12 +17,15 @@
     </div>
     <div class="deck" id="lower-block">
         <div class="card" id="card1" onclick="enlargeCard(this)">
+            <img src="taro_cards/card_back.jpg" alt="card_back">
             <div class="card-label" id="label1">1</div>
         </div>
         <div class="card" id="card2" onclick="enlargeCard(this)">
+            <img src="taro_cards/card_back.jpg" alt="card_back">
             <div class="card-label" id="label2">2</div>
         </div>
         <div class="card" id="card3" onclick="enlargeCard(this)">
+            <img src="taro_cards/card_back.jpg" alt="card_back">
             <div class="card-label" id="label3">3</div>
         </div>
     </div>
@@ -98,7 +101,7 @@
             const selectedCards = getRandomCards(cards);
             const btn = document.getElementById('btn-cards');
             const lowerBlock = document.getElementById('lower-block');
-            
+
             // btn.style.transform = 'translateY(-100%)';
             lowerBlock.style.transform = 'translateY(-10%)';
             btn.style.display = 'none';
