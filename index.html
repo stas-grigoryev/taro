@@ -15,13 +15,13 @@
         <button onclick="drawCards()">Вытащить карты</button>
     </div>
     <div class="deck">
-        <div class="card" id="card1">
+        <div class="card" id="card1" onclick="enlargeCard(this)">
             <div class="card-label" id="label1"></div>
         </div>
-        <div class="card" id="card2">
+        <div class="card" id="card2" onclick="enlargeCard(this)">
             <div class="card-label" id="label2"></div>
         </div>
-        <div class="card" id="card3">
+        <div class="card" id="card3" onclick="enlargeCard(this)">
             <div class="card-label" id="label3"></div>
         </div>
     </div>
@@ -60,6 +60,10 @@
                 flipCard(document.getElementById('card2'), document.getElementById('label2'), selectedCards[1]);
                 flipCard(document.getElementById('card3'), document.getElementById('label3'), selectedCards[2]);
             });
+        }
+
+        function enlargeCard(cardElement) {
+            cardElement.classList.toggle('enlarged');
         }
     </script>
 </body>
