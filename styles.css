@@ -120,7 +120,7 @@ h1 {
 .card.enlarged {
     /* width: 200px;
     height: 300px; */
-    z-index: 10;
+    z-index: 100;
     transform: scale(1.5);
 }
 
@@ -140,7 +140,7 @@ h1 {
     left: 18%;
     transform: translateX(-50%);
     margin-bottom: 20px;
-    z-index: -1;
+    z-index: 0;
 }
 
 .animation-class {

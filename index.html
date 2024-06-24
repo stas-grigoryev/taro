@@ -7,6 +7,7 @@
     <title>Таро Карты</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body>
@@ -30,9 +31,14 @@
         </div>
     </div>
     <div style="justify-content: center;">
-        <button class="decode-button animation-class" id="decode" style="display: none;">Получить расшифровку</button>
+        <button onclick="senddata()" class="decode-button animation-class" id="decode" style="display: none;">Получить
+            расшифровку</button>
     </div>
+
     <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand()
+
         const tarotFiles = [
             "Туз_Жезлов.jpg",
             "Двойка_Жезлов.jpg",
@@ -114,6 +120,8 @@
             // Устанавливаем задержку в 2 секунды
             document.getElementById('decode').style.display = 'block';
 
+            data_to_bot = [document.getElementById("question").value, selectedCards[0].name, selectedCards[1].name, selectedCards[2].name]
+            console.log(data_to_bot)
         }
 
         function enlargeCard(cardElement) {
@@ -123,6 +131,7 @@
             } else {
                 cardElement.style.transform = 'rotateY(0) scale(1)';
             }
+            tg.sendData(data_to_bot); 
         }
     </script>
 </body>
