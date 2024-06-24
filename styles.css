@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 2em;
     margin-bottom: 20px;
 }
 
@@ -26,20 +26,22 @@ h1 {
 
 .input-container input {
     padding: 10px;
+    font-family: 'Yeseva One', cursive;
     font-size: 1em;
     width: 300px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    border: 1px solid #ffffff;
     border-radius: 5px;
     background-color: #444;
-    color: #fff;
+    color: #ffffff;
 }
 
 .input-container button {
     padding: 10px 20px;
+    font-family: 'Yeseva One', cursive;
     font-size: 1em;
-    color: #fff;
-    background-color: #6c757d;
+    color: #3F3E38;
+    background-color: #9BD0FD;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -47,20 +49,20 @@ h1 {
 }
 
 .input-container button:hover {
-    background-color: #495057;
+    background-color: #9BD0FD;
 }
 
 .deck {
     display: flex;
     justify-content: space-around;
     width: 80%;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .card {
     width: 100px;
     height: 150px;
-    background-color: #fff;
+    background-color: #ECE3DD;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -77,6 +79,7 @@ h1 {
 
 .card.flipped {
     transform: rotateY(180deg);
+    transform: rotateY(0deg) scale(1);
 }
 
 .card-label {
@@ -112,17 +115,18 @@ h1 {
 }
 
 .card.enlarged {
-    width: 200px;
-    height: 300px;
+    /* width: 200px;
+    height: 300px; */
     z-index: 10;
     transform: scale(1.5);
 }
 
 .decode-button {
     padding: 10px 20px;
+    font-family: 'Yeseva One', cursive;
     font-size: 1em;
-    color: #fff;
-    background-color: #28a745;
+    color: #2F2D30;
+    background-color: #FFFE48;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -130,5 +134,5 @@ h1 {
 }
 
 .decode-button:hover {
-    background-color: #218838;
+    background-color: #FFFE48;
 }
