@@ -1,23 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таро Карты</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
+            padding: 20px;
         }
+
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 1em;
+            width: 300px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+
         .deck {
             display: flex;
             justify-content: space-around;
             width: 80%;
+            margin-bottom: 20px;
         }
+
         .card {
             width: 100px;
             height: 150px;
@@ -26,23 +70,80 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.5s;
+            position: relative;
         }
+
         .card img {
             width: 100%;
             height: 100%;
             border-radius: 10px;
         }
+
         .card.flipped {
             transform: rotateY(180deg);
         }
+
+        .card-label {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            text-align: center;
+            display: none;
+        }
+
+        .deck .card img {
+            display: none;
+        }
+
+        .deck .card.flipped img {
+            display: block;
+        }
+
+        .deck .card.flipped .card-label {
+            display: block;
+        }
+
+        .decode-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .decode-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
+
 <body>
-    <div class="deck">
-        <div class="card" id="card1"></div>
-        <div class="card" id="card2"></div>
-        <div class="card" id="card3"></div>
+    <h1>3х карточный расклад карт таро</h1>
+    <div class="input-container">
+        <input type="text" id="question" placeholder="Введите ваш вопрос к колоде">
+        <button onclick="drawCards()">Вытащить карты</button>
     </div>
+    <div class="deck">
+        <div class="card" id="card1">
+            <div class="card-label" id="label1"></div>
+        </div>
+        <div class="card" id="card2">
+            <div class="card-label" id="label2"></div>
+        </div>
+        <div class="card" id="card3">
+            <div class="card-label" id="label3"></div>
+        </div>
+    </div>
+    <button class="decode-button">Получить расшифровку</button>
     <script>
         const tarotCards = {
             "Аркан Шут": "https://vedovstvo.by/wp-content/uploads/2019/04/shut.jpg",
@@ -63,87 +164,89 @@
             "Аркан Дьявол": "https://vedovstvo.by/wp-content/uploads/2019/04/devil.jpg",
             "Аркан Башня": "https://vedovstvo.by/wp-content/uploads/2019/04/tower.jpg",
             "Аркан Звезда": "https://vedovstvo.by/wp-content/uploads/2019/04/stare.jpg",
-            "Аркан Луна": "https://vedovstvo.by/wp-content/uploads/2019/04/moon.jpg",
-            "Аркан Солнце": "https://vedovstvo.by/wp-content/uploads/2019/04/sun.jpg",
-            "Аркан Таро Суд": "https://vedovstvo.by/wp-content/uploads/2019/04/sud.jpg",
-            "Аркан Мир": "https://vedovstvo.by/wp-content/uploads/2019/04/world.jpg",
-            "Туз Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords01.jpg",
-            "Двойка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords02.jpg",
-            "Тройка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords03.jpg",
-            "Четвёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords04.jpg",
-            "Пятёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords05.jpg",
-            "Шестёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords06.jpg",
-            "Семёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords07.jpg",
-            "Восьмёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords08.jpg",
-            "Девятка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords09.jpg",
-            "Десятка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords10.jpg",
-            "Паж Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords11.jpg",
-            "Рыцарь Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords12.jpg",
-            "Королева Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords13.jpg",
-            "Король Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords14.jpg",
-            "Туз Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands01.jpg",
+            "Аркан Луна": "https://vedовstvo.by/wp-content/uploads/2019/04/moon.jpg",
+            "Аркан Солнце": "https://vedовство.by/wp-content/uploads/2019/04/sun.jpg",
+            "Аркан Таро Суд": "https://vedовство.by/wp-content/uploads/2019/04/sud.jpg",
+            "Аркан Мир": "https://vedовство.by/wp-content/uploads/2019/04/world.jpg",
+            "Туз Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords01.jpg",
+            "Двойка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords02.jpg",
+            "Тройка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords03.jpg",
+            "Четвёрка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords04.jpg",
+            "Пятёрка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords05.jpg",
+            "Шестёрка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords06.jpg",
+            "Семёрка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords07.jpg",
+            "Восьмёрка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords08.jpg",
+            "Девятка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords09.jpg",
+            "Десятка Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords10.jpg",
+            "Паж Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords11.jpg",
+            "Рыцарь Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords12.jpg",
+            "Королева Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords13.jpg",
+            "Король Мечей": "https://vedовство.by/wp-content/uploads/2019/04/swords14.jpg",
+            "Туз Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands01.jpg",
             "Двойка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands02.jpg",
             "Тройка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands03.jpg",
             "Четвёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands04.jpg",
-            "Пятёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands05.jpg",
-            "Шестёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands06.jpg",
+            "Пятёрка Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands05.jpg",
+            "Шестёрка Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands06.jpg",
             "Семёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands07.jpg",
-            "Восьмёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands08.jpg",
-            "Девятка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands09.jpg",
+            "Восьмёрка Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands08.jpg",
+            "Девятка Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands09.jpg",
             "Десятка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands10.jpg",
             "Паж Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands11.jpg",
-            "Рыцарь Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands12.jpg",
-            "Королева Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands13.jpg",
-            "Король Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands14.jpg",
+            "Рыцарь Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands12.jpg",
+            "Королева Жезлов": "https://vedovство.by/wp-content/uploads/2019/04/wands13.jpg",
+            "Король Жезлов": "https://vedовство.by/wp-content/uploads/2019/04/wands14.jpg",
             "Туз Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents01.jpg",
-            "Двойка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents02.jpg",
-            "Тройка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents03.jpg",
+            "Двойка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents02.jpg",
+            "Тройка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents03.jpg",
             "Четвёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents04.jpg",
-            "Пятёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents05.jpg",
-            "Шестёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents06.jpg",
-            "Семёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents07.jpg",
-            "Восьмёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents08.jpg",
-            "Девятка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents09.jpg",
-            "Десятка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents10.jpg",
-            "Паж Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents11.jpg",
-            "Рыцарь Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents12.jpg",
-            "Королева Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents13.jpg",
-            "Король Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents14.jpg",
+            "Пятёрка Пентаклей": "https://vedовstvo.by/wp-content/uploads/2019/04/pents05.jpg",
+            "Шестёрка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents06.jpg",
+            "Семёрка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents07.jpg",
+            "Восьмёрка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents08.jpg",
+            "Девятка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents09.jpg",
+            "Десятка Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents10.jpg",
+            "Паж Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents11.jpg",
+            "Рыцарь Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents12.jpg",
+            "Королева Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents13.jpg",
+            "Король Пентаклей": "https://vedовство.by/wp-content/uploads/2019/04/pents14.jpg",
             "Туз Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups01.jpg",
-            "Двойка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups02.jpg",
-            "Тройка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups03.jpg",
-            "Четвёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups04.jpg",
-            "Пятёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups05.jpg",
-            "Шестёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups06.jpg",
-            "Семёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups07.jpg",
-            "Восьмёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups08.jpg",
-            "Девятка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups09.jpg",
-            "Десятка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups10.jpg",
-            "Паж Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups11.jpg",
-            "Рыцарь Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups12.jpg",
-            "Королева Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups13.jpg",
-            "Король Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups14.jpg"
+            "Двойка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups02.jpg",
+            "Тройка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups03.jpg",
+            "Четвёрка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups04.jpg",
+            "Пятёрка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups05.jpg",
+            "Шестёрка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups06.jpg",
+            "Семёрка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups07.jpg",
+            "Восьмёрка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups08.jpg",
+            "Девятка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups09.jpg",
+            "Десятка Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups10.jpg",
+            "Паж Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups11.jpg",
+            "Рыцарь Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups12.jpg",
+            "Королева Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups13.jpg",
+            "Король Кубков": "https://vedовство.by/wp-content/uploads/2019/04/cups14.jpg"
         };
 
         function getRandomCards() {
             const keys = Object.keys(tarotCards);
             const shuffled = keys.sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, 3).map(key => tarotCards[key]);
+            return shuffled.slice(0, 3).map(key => ({ name: key, url: tarotCards[key] }));
         }
 
-        function flipCard(cardElement, image) {
+        function flipCard(cardElement, labelElement, card) {
             setTimeout(() => {
                 cardElement.classList.add('flipped');
-                cardElement.innerHTML = `<img src="${image}" alt="Таро Карта">`;
+                cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}">`;
+                labelElement.textContent = card.name;
             }, 500);
         }
 
-        window.onload = () => {
+        function drawCards() {
             const cards = getRandomCards();
-            flipCard(document.getElementById('card1'), cards[0]);
-            flipCard(document.getElementById('card2'), cards[1]);
-            flipCard(document.getElementById('card3'), cards[2]);
-        };
+            flipCard(document.getElementById('card1'), document.getElementById('label1'), cards[0]);
+            flipCard(document.getElementById('card2'), document.getElementById('label2'), cards[1]);
+            flipCard(document.getElementById('card3'), document.getElementById('label3'), cards[2]);
+        }
     </script>
 </body>
+
 </html>
