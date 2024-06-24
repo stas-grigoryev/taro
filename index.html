@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таро Карты</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .deck {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+        .card {
+            width: 100px;
+            height: 150px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="deck">
+        <div class="card" id="card1"></div>
+        <div class="card" id="card2"></div>
+        <div class="card" id="card3"></div>
+    </div>
+    <script>
+        const tarotCards = {
+            "Аркан Шут": "https://vedovstvo.by/wp-content/uploads/2019/04/shut.jpg",
+            "Аркан Маг": "https://vedovstvo.by/wp-content/uploads/2019/04/mag.jpg",
+            "Аркан Верховная Жрица": "https://vedovstvo.by/wp-content/uploads/2019/04/zhrica.jpg",
+            "Аркан Императрица": "https://vedovstvo.by/wp-content/uploads/2019/04/impress.jpg",
+            "Аркан Император": "https://vedovstvo.by/wp-content/uploads/2019/04/imperor.jpg",
+            "Аркан Верховный Жрец": "https://vedovstvo.by/wp-content/uploads/2019/04/hierofant.jpg",
+            "Аркан Влюблённые": "https://vedovstvo.by/wp-content/uploads/2019/04/lovers.jpg",
+            "Аркан Колесница": "https://vedovstvo.by/wp-content/uploads/2019/04/chariot.jpg",
+            "Аркан Сила": "https://vedovstvo.by/wp-content/uploads/2019/04/strenghch.jpg",
+            "Аркан Отшельник": "https://vedovstvo.by/wp-content/uploads/2019/04/hermit.jpg",
+            "Аркан Колесо Фортуны": "https://vedovstvo.by/wp-content/uploads/2019/04/fortune.jpg",
+            "Аркан Правосудие": "https://vedovstvo.by/wp-content/uploads/2019/04/justise.jpg",
+            "Аркан Повешенный": "https://vedovstvo.by/wp-content/uploads/2019/04/hanged_men.jpg",
+            "Аркан Смерть": "https://vedovstvo.by/wp-content/uploads/2019/04/death.jpg",
+            "Аркан Умеренность": "https://vedovstvo.by/wp-content/uploads/2019/04/temperam.jpg",
+            "Аркан Дьявол": "https://vedovstvo.by/wp-content/uploads/2019/04/devil.jpg",
+            "Аркан Башня": "https://vedovstvo.by/wp-content/uploads/2019/04/tower.jpg",
+            "Аркан Звезда": "https://vedovstvo.by/wp-content/uploads/2019/04/stare.jpg",
+            "Аркан Луна": "https://vedovstvo.by/wp-content/uploads/2019/04/moon.jpg",
+            "Аркан Солнце": "https://vedovstvo.by/wp-content/uploads/2019/04/sun.jpg",
+            "Аркан Таро Суд": "https://vedovstvo.by/wp-content/uploads/2019/04/sud.jpg",
+            "Аркан Мир": "https://vedovstvo.by/wp-content/uploads/2019/04/world.jpg",
+            "Туз Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords01.jpg",
+            "Двойка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords02.jpg",
+            "Тройка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords03.jpg",
+            "Четвёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords04.jpg",
+            "Пятёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords05.jpg",
+            "Шестёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords06.jpg",
+            "Семёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords07.jpg",
+            "Восьмёрка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords08.jpg",
+            "Девятка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords09.jpg",
+            "Десятка Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords10.jpg",
+            "Паж Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords11.jpg",
+            "Рыцарь Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords12.jpg",
+            "Королева Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords13.jpg",
+            "Король Мечей": "https://vedovstvo.by/wp-content/uploads/2019/04/swords14.jpg",
+            "Туз Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands01.jpg",
+            "Двойка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands02.jpg",
+            "Тройка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands03.jpg",
+            "Четвёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands04.jpg",
+            "Пятёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands05.jpg",
+            "Шестёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands06.jpg",
+            "Семёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands07.jpg",
+            "Восьмёрка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands08.jpg",
+            "Девятка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands09.jpg",
+            "Десятка Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands10.jpg",
+            "Паж Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands11.jpg",
+            "Рыцарь Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands12.jpg",
+            "Королева Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands13.jpg",
+            "Король Жезлов": "https://vedovstvo.by/wp-content/uploads/2019/04/wands14.jpg",
+            "Туз Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents01.jpg",
+            "Двойка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents02.jpg",
+            "Тройка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents03.jpg",
+            "Четвёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents04.jpg",
+            "Пятёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents05.jpg",
+            "Шестёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents06.jpg",
+            "Семёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents07.jpg",
+            "Восьмёрка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents08.jpg",
+            "Девятка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents09.jpg",
+            "Десятка Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents10.jpg",
+            "Паж Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents11.jpg",
+            "Рыцарь Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents12.jpg",
+            "Королева Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents13.jpg",
+            "Король Пентаклей": "https://vedovstvo.by/wp-content/uploads/2019/04/pents14.jpg",
+            "Туз Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups01.jpg",
+            "Двойка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups02.jpg",
+            "Тройка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups03.jpg",
+            "Четвёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups04.jpg",
+            "Пятёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups05.jpg",
+            "Шестёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups06.jpg",
+            "Семёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups07.jpg",
+            "Восьмёрка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups08.jpg",
+            "Девятка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups09.jpg",
+            "Десятка Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups10.jpg",
+            "Паж Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups11.jpg",
+            "Рыцарь Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups12.jpg",
+            "Королева Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups13.jpg",
+            "Король Кубков": "https://vedovstvo.by/wp-content/uploads/2019/04/cups14.jpg"
+        };
+
+        function getRandomCards() {
+            const keys = Object.keys(tarotCards);
+            const shuffled = keys.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 3).map(key => tarotCards[key]);
+        }
+
+        function flipCard(cardElement, image) {
+            setTimeout(() => {
+                cardElement.classList.add('flipped');
+                cardElement.innerHTML = `<img src="${image}" alt="Таро Карта">`;
+            }, 500);
+        }
+
+        window.onload = () => {
+            const cards = getRandomCards();
+            flipCard(document.getElementById('card1'), cards[0]);
+            flipCard(document.getElementById('card2'), cards[1]);
+            flipCard(document.getElementById('card3'), cards[2]);
+        };
+    </script>
+</body>
+</html>
