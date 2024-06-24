@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таро Карты</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -105,8 +106,13 @@
 
         function enlargeCard(cardElement) {
             cardElement.classList.toggle('enlarged');
+            if (cardElement.classList.contains('enlarged')) {
+                cardElement.style.transform = 'rotateY(360deg) scale(1.5)';
+            } else {
+                cardElement.style.transform = 'rotateY(0) scale(1)';
+            }
         }
     </script>
 </body>
-<!-- sdsdssd -->
+
 </html>
