@@ -13,23 +13,20 @@
     <h1>3х карточный расклад карт таро</h1>
     <div class="input-container">
         <input type="text" id="question" placeholder="Введите ваш вопрос к колоде">
-        <button onclick="drawCards()">Вытащить карты</button>
+        <button onclick="drawCards()" id="btn-cards">Вытащить карты</button>
     </div>
-    <div class="deck">
+    <div class="deck" id="lower-block">
         <div class="card" id="card1" onclick="enlargeCard(this)">
-            <div class="card-label" id="label1"></div>
-            <div class="card-name" id="name1"></div>
+            <div class="card-label" id="label1">1</div>
         </div>
         <div class="card" id="card2" onclick="enlargeCard(this)">
-            <div class="card-label" id="label2"></div>
-            <div class="card-name" id="name2"></div>
+            <div class="card-label" id="label2">2</div>
         </div>
         <div class="card" id="card3" onclick="enlargeCard(this)">
-            <div class="card-label" id="label3"></div>
-            <div class="card-name" id="name3"></div>
+            <div class="card-label" id="label3">3</div>
         </div>
     </div>
-    <button class="decode-button">Получить расшифровку</button>
+    <button class="decode-button animation-class" id="decode" style="display: none;">Получить расшифровку</button>
     <script>
         const tarotFiles = [
             "Туз_Жезлов.jpg",
@@ -92,22 +89,26 @@
         function flipCard(cardElement, labelElement, nameElement, card) {
             setTimeout(() => {
                 cardElement.classList.add('flipped');
-                cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}">`;
-                if (labelElement) {
-                    labelElement.textContent = card.name;
-                }
-                if (nameElement) {
-                    nameElement.textContent = card.name;
-                }
+                cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}"><div class="card-label" id="label3">${card.name}</div>`;
             }, 500);
         }
 
         function drawCards() {
             const cards = getTarotCards();
             const selectedCards = getRandomCards(cards);
+            const btn = document.getElementById('btn-cards');
+            const lowerBlock = document.getElementById('lower-block');
+            
+            // btn.style.transform = 'translateY(-100%)';
+            lowerBlock.style.transform = 'translateY(-10%)';
+            btn.style.display = 'none';
+
             flipCard(document.getElementById('card1'), document.getElementById('label1'), document.getElementById('name1'), selectedCards[0]);
             flipCard(document.getElementById('card2'), document.getElementById('label2'), document.getElementById('name2'), selectedCards[1]);
             flipCard(document.getElementById('card3'), document.getElementById('label3'), document.getElementById('name3'), selectedCards[2]);
+            // Устанавливаем задержку в 2 секунды
+            document.getElementById('decode').style.display = 'block';
+
         }
 
         function enlargeCard(cardElement) {

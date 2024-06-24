@@ -5,7 +5,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #2d2d2d;
+    background-color: #1D2633;
     color: #fff;
     margin: 0;
     padding: 20px;
@@ -32,7 +32,7 @@ h1 {
     margin-bottom: 20px;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    background-color: #444;
+    background-color: #ECE3DD;
     color: #ffffff;
 }
 
@@ -56,7 +56,7 @@ h1 {
     display: flex;
     justify-content: space-around;
     width: 80%;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
 .card {
@@ -93,7 +93,7 @@ h1 {
     border-radius: 5px;
     font-size: 0.8em;
     text-align: center;
-    display: none;
+    /* display: none; */
 }
 
 .card-name {
@@ -122,6 +122,7 @@ h1 {
 }
 
 .decode-button {
+    opacity: 0;
     padding: 10px 20px;
     font-family: 'Yeseva One', cursive;
     font-size: 1em;
@@ -133,6 +134,27 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.decode-button:hover {
-    background-color: #FFFE48;
-}
+.animation-class {
+    animation: fadeIn 2s ease-in-out 0.5s forwards;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
+  #lower-block {
+    transition: transform 1s ease-out;
+  }
+  
