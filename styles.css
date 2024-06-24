@@ -75,7 +75,7 @@ h1 {
 }
 
 .card.flipped {
-    transform: rotateY(180);
+    transform: rotateY(90);
 }
 
 .card-label {
