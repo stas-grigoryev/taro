@@ -28,16 +28,56 @@
     <button class="decode-button">Получить расшифровку</button>
     <script>
         const tarotFolder = "Колода_Таро_Райдера_Уэйта";
+        const tarotFiles = [
+            "Туз Жезлов.jpg",
+            "Двойка Жезлов.jpg",
+            "Тройка Жезлов.jpg",
+            "Четвёрка Жезлов.jpg",
+            "Пятёрка Жезлов.jpg",
+            "Шестёрка Жезлов.jpg",
+            "Семёрка Жезлов.jpg",
+            "Восьмёрка Жезлов.jpg",
+            "Девятка Жезлов.jpg",
+            "Десятка Жезлов.jpg",
+            "Паж Жезлов.jpg",
+            "Рыцарь Жезлов.jpg",
+            "Королева Жезлов.jpg",
+            "Король Жезлов.jpg",
+            "Туз Пентаклей.jpg",
+            "Двойка Пентаклей.jpg",
+            "Тройка Пентаклей.jpg",
+            "Четвёрка Пентаклей.jpg",
+            "Пятёрка Пентаклей.jpg",
+            "Шестёрка Пентаклей.jpg",
+            "Семёрка Пентаклей.jpg",
+            "Восьмёрка Пентаклей.jpg",
+            "Девятка Пентаклей.jpg",
+            "Десятка Пентаклей.jpg",
+            "Паж Пентаклей.jpg",
+            "Рыцарь Пентаклей.jpg",
+            "Королева Пентаклей.jpg",
+            "Король Пентаклей.jpg",
+            "Туз Кубков.jpg",
+            "Двойка Кубков.jpg",
+            "Тройка Кубков.jpg",
+            "Четвёрка Кубков.jpg",
+            "Пятёрка Кубков.jpg",
+            "Шестёрка Кубков.jpg",
+            "Семёрка Кубков.jpg",
+            "Восьмёрка Кубков.jpg",
+            "Девятка Кубков.jpg",
+            "Десятка Кубков.jpg",
+            "Паж Кубков.jpg",
+            "Рыцарь Кубков.jpg",
+            "Королева Кубков.jpg",
+            "Король Кубков.jpg"
+        ];
 
         function getTarotCards() {
-            return fetch(tarotFolder)
-                .then(response => response.json())
-                .then(files => {
-                    return files.map(file => {
-                        const name = file.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
-                        return { name, url: `${tarotFolder}/${file}` };
-                    });
-                });
+            return tarotFiles.map(file => {
+                const name = file.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+                return { name, url: `${tarotFolder}/${file}` };
+            });
         }
 
         function getRandomCards(cards) {
@@ -54,12 +94,11 @@
         }
 
         function drawCards() {
-            getTarotCards().then(cards => {
-                const selectedCards = getRandomCards(cards);
-                flipCard(document.getElementById('card1'), document.getElementById('label1'), selectedCards[0]);
-                flipCard(document.getElementById('card2'), document.getElementById('label2'), selectedCards[1]);
-                flipCard(document.getElementById('card3'), document.getElementById('label3'), selectedCards[2]);
-            });
+            const cards = getTarotCards();
+            const selectedCards = getRandomCards(cards);
+            flipCard(document.getElementById('card1'), document.getElementById('label1'), selectedCards[0]);
+            flipCard(document.getElementById('card2'), document.getElementById('label2'), selectedCards[1]);
+            flipCard(document.getElementById('card3'), document.getElementById('label3'), selectedCards[2]);
         }
 
         function enlargeCard(cardElement) {
