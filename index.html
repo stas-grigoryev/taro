@@ -87,7 +87,7 @@
 
         function flipCard(cardElement, labelElement, card) {
             setTimeout(() => {
-                // cardElement.classList.add('flipped');
+                cardElement.classList.add('flipped');
                 cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}">`;
                 if (labelElement) {
                     labelElement.textContent = card.name;
