@@ -24,7 +24,7 @@ h1 {
     align-items: center;
 }
 
-.input-container input {
+.input-container textarea {
     padding: 10px;
     font-family: 'Yeseva One', cursive;
     font-size: 1em;
@@ -33,7 +33,7 @@ h1 {
     border: 1px solid #ffffff;
     border-radius: 5px;
     background-color: #ECE3DD;
-    color: #ffffff;
+    color: #755d5d;
 }
 
 .input-container button {
@@ -60,7 +60,7 @@ h1 {
 }
 
 .card {
-    margin: 10px;
+    margin: 10px; /* карты */
     width: 100px;
     height: 150px;
     background-color: #ECE3DD;
