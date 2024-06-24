@@ -18,12 +18,15 @@
     <div class="deck">
         <div class="card" id="card1" onclick="enlargeCard(this)">
             <div class="card-label" id="label1"></div>
+            <div class="card-name" id="name1"></div>
         </div>
         <div class="card" id="card2" onclick="enlargeCard(this)">
             <div class="card-label" id="label2"></div>
+            <div class="card-name" id="name2"></div>
         </div>
         <div class="card" id="card3" onclick="enlargeCard(this)">
             <div class="card-label" id="label3"></div>
+            <div class="card-name" id="name3"></div>
         </div>
     </div>
     <button class="decode-button">Получить расшифровку</button>
@@ -86,12 +89,15 @@
             return shuffled.slice(0, 3);
         }
 
-        function flipCard(cardElement, labelElement, card) {
+        function flipCard(cardElement, labelElement, nameElement, card) {
             setTimeout(() => {
                 cardElement.classList.add('flipped');
                 cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}">`;
                 if (labelElement) {
                     labelElement.textContent = card.name;
+                }
+                if (nameElement) {
+                    nameElement.textContent = card.name;
                 }
             }, 500);
         }
@@ -99,9 +105,9 @@
         function drawCards() {
             const cards = getTarotCards();
             const selectedCards = getRandomCards(cards);
-            flipCard(document.getElementById('card1'), document.getElementById('label1'), selectedCards[0]);
-            flipCard(document.getElementById('card2'), document.getElementById('label2'), selectedCards[1]);
-            flipCard(document.getElementById('card3'), document.getElementById('label3'), selectedCards[2]);
+            flipCard(document.getElementById('card1'), document.getElementById('label1'), document.getElementById('name1'), selectedCards[0]);
+            flipCard(document.getElementById('card2'), document.getElementById('label2'), document.getElementById('name2'), selectedCards[1]);
+            flipCard(document.getElementById('card3'), document.getElementById('label3'), document.getElementById('name3'), selectedCards[2]);
         }
 
         function enlargeCard(cardElement) {
@@ -114,5 +120,5 @@
         }
     </script>
 </body>
-<!--  -->
+
 </html>
