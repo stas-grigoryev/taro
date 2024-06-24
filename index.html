@@ -90,7 +90,9 @@
             setTimeout(() => {
                 cardElement.classList.add('flipped');
                 cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}">`;
-                labelElement.textContent = card.name;
+                if (labelElement) {
+                    labelElement.textContent = card.name;
+                }
             }, 500);
         }
 
