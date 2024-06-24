@@ -27,7 +27,6 @@
     </div>
     <button class="decode-button">Получить расшифровку</button>
     <script>
-        const tarotFolder = "taro_cards";
         const tarotFiles = [
             "Туз_Жезлов.jpg",
             "Двойка_Жезлов.jpg",
@@ -76,7 +75,7 @@
         function getTarotCards() {
             return tarotFiles.map(file => {
                 const name = file.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
-                const url = `${tarotFolder}/${encodeURIComponent(file)}`;
+                const url = `taro_cards/${encodeURIComponent(file)}`;
                 return { name, url };
             });
         }
