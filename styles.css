@@ -56,12 +56,12 @@ h1 {
 .deck {
     display: flex;
     justify-content: space-around;
-    width: 100%;
-    margin-bottom: 10px;
+    width: 95%;
+    margin-bottom: 5px;
 }
 
 .card {
-    margin: 10px; /* карты */
+    margin: 5px; /* карты */
     width: 100px;
     height: 150px;
     background-color: #ECE3DD;
@@ -95,7 +95,7 @@ h1 {
     border-radius: 5px;
     font-size: 0.8em;
     text-align: center;
-    /* display: none; */
+    display: none;
 }
 
 .card-name {
