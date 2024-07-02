@@ -1,0 +1,229 @@
+body {
+    font-family: 'Yeseva One', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1D2633;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container textarea {
+    padding: 10px;
+    font-family: 'Yeseva One', cursive;
+    font-size: 1em;
+    height: 150px;
+    width: 300px;
+    margin-bottom: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #ECE3DD;
+    color: #755d5d;
+}
+
+.input-container button {
+    padding: 10px 20px;
+    font-family: 'Yeseva One', cursive;
+    font-size: 1em;
+    color: #3F3E38;
+    background-color: #9BD0FD;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.input-container button:hover {
+    background-color: #9BD0FD;
+}
+
+.deck {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    width: 95%;
+    margin-bottom: 5px;
+}
+
+.card {
+    margin: 5px;
+    width: 95%;
+    height: 95%;
+    background-color: #ECE3DD;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s, width 0.5s, height 0.5s;
+    position: relative;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    transform: rotateY(0deg) scale(1);
+}
+
+.card-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    text-align: center;
+    display: none;
+}
+
+.card-name {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-size: 0.8em;
+    text-align: center;
+    display: none;
+}
+
+.deck .card.flipped .card-label,
+.deck .card.flipped .card-name {
+    display: block;
+}
+
+.card.enlarged {
+    z-index: 100;
+    transform: scale(1.5);
+}
+
+.decode-button {
+    opacity: 0;
+    padding: 10px 20px;
+    font-family: 'Yeseva One', cursive;
+    font-size: 1em;
+    color: #2F2D30;
+    background-color: #FFFE48;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    bottom: 0;
+    /* left: 18%; */
+    transform: translateX(-50%);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    z-index: 0;
+}
+
+.animation-class {
+    animation: fadeIn 2s ease-in-out 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#lower-block {
+    transition: transform 1s ease-out;
+}
+
+/* Specific positions for Celtic Cross layout */
+#card1 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#card2 {
+    grid-column: 2;
+    grid-row: 2;
+    transform: rotate(90deg);
+    position: relative;
+    /* или absolute, fixed, sticky в зависимости от ваших нужд */
+    z-index: 10;
+    /* число может быть любым, главное, чтобы оно было больше, чем у других элементов */
+}
+
+/* #card2.horizontal {
+    transform: rotate(90deg);
+} */
+
+#card3 {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#card4 {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#card5 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#card6 {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#card7 {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+#card8 {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+#card9 {
+    grid-column: 4;
+    grid-row: 3;
+}
+
+#card10 {
+    grid-column: 4;
+    grid-row: 4;
+}
