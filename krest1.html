@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таро Карты</title>
+    <link rel="stylesheet" href="krest1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+    <h1>Расклад "Кельтский крест"</h1>
+    <div class="input-container">
+        <!-- <textarea type="text" id="question" placeholder="Введите ваш вопрос к колоде"></textarea> -->
+        <button onclick="drawCards()" id="btn-cards">Вытащить карты</button>
+    </div>
+    <div class="deck1" id="lower-block">
+        <div class="deck2" id="lower-block">
+            <div class="card" id="card1" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label1">1</div>
+            </div>
+            <div class="card" id="card2" onclick="toggleCard2()">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label2">2</div>
+            </div>
+            <div class="card" id="card3" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label3">3</div>
+            </div>
+            <div class="card" id="card4" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label4">4</div>
+            </div>
+            <div class="card" id="card5" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label5">5</div>
+            </div>
+            <div class="card" id="card6" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label6">6</div>
+            </div>
+        </div>
+        <div class="deck3" id="lower-block">
+            <div class="card" id="card7" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label7">7</div>
+            </div>
+            <div class="card" id="card8" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label8">8</div>
+            </div>
+            <div class="card" id="card9" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label9">9</div>
+            </div>
+            <div class="card" id="card10" onclick="enlargeCard(this)">
+                <img src="taro_cards/card_back.jpg" alt="card_back">
+                <div class="card-label" id="label10">10</div>
+            </div>
+        </div>
+    </div>
+    <div style="justify-content: center;">
+        <button onclick="senddata()" class="decode-button animation-class" id="decode" style="display: none;">Получить
+            расшифровку</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        const tarotFiles = [
+            "Туз_Жезлов.jpg",
+            "Двойка_Жезлов.jpg",
+            "Тройка_Жезлов.jpg",
+            "Четвёрка_Жезлов.jpg",
+            "Пятёрка_Жезлов.jpg",
+            "Шестёрка_Жезлов.jpg",
+            "Семёрка_Жезлов.jpg",
+            "Восьмёрка_Жезлов.jpg",
+            "Девятка_Жезлов.jpg",
+            "Десятка_Жезлов.jpg",
+            "Паж_Жезлов.jpg",
+            "Рыцарь_Жезлов.jpg",
+            "Королева_Жезлов.jpg",
+            "Король_Жезлов.jpg",
+            "Туз_Пентаклей.jpg",
+            "Двойка_Пентаклей.jpg",
+            "Тройка_Пентаклей.jpg",
+            "Четвёрка_Пентаклей.jpg",
+            "Пятёрка_Пентаклей.jpg",
+            "Шестёрка_Пентаклей.jpg",
+            "Семёрка_Пентаклей.jpg",
+            "Восьмёрка_Пентаклей.jpg",
+            "Девятка_Пентаклей.jpg",
+            "Десятка_Пентаклей.jpg",
+            "Паж_Пентаклей.jpg",
+            "Рыцарь_Пентаклей.jpg",
+            "Королева_Пентаклей.jpg",
+            "Король_Пентаклей.jpg",
+            "Туз_Кубков.jpg",
+            "Двойка_Кубков.jpg",
+            "Тройка_Кубков.jpg",
+            "Четвёрка_Кубков.jpg",
+            "Пятёрка_Кубков.jpg",
+            "Шестёрка_Кубков.jpg",
+            "Семёрка_Кубков.jpg",
+            "Восьмёрка_Кубков.jpg",
+            "Девятка_Кубков.jpg",
+            "Десятка_Кубков.jpg",
+            "Паж_Кубков.jpg",
+            "Рыцарь_Кубков.jpg",
+            "Королева_Кубков.jpg",
+            "Король_Кубков.jpg"
+        ];
+
+        function getTarotCards() {
+            return tarotFiles.map(file => {
+                const name = file.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+                const url = `taro_cards/${encodeURIComponent(file)}`;
+                return { name, url };
+            });
+        }
+
+        function getRandomCards(cards) {
+            const shuffled = cards.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 10);
+        }
+
+        function flipCard(cardElement, labelElement, card) {
+            setTimeout(() => {
+                cardElement.classList.add('flipped');
+                cardElement.innerHTML = `<img src="${card.url}" alt="${card.name}"><div class="card-label" style = "display: block;">${card.name}</div>`;
+            }, 500);
+        }
+
+        function drawCards() {
+            const cards = getTarotCards();
+            const selectedCards = getRandomCards(cards);
+            const btn = document.getElementById('btn-cards');
+            const lowerBlock = document.getElementById('lower-block');
+
+            lowerBlock.style.transform = 'translateY(0%)';
+            btn.style.display = 'none';
+
+            for (let i = 0; i < 10; i++) {
+                flipCard(document.getElementById(`card${i + 1}`), document.getElementById(`label${i + 1}`), selectedCards[i]);
+            }
+
+            document.getElementById('decode').style.display = 'block';
+
+            data_to_bot = [document.getElementById("question").value, ...selectedCards.map(card => card.name)];
+            console.log(data_to_bot);
+        }
+
+        function enlargeCard(cardElement) {
+            cardElement.classList.toggle('enlarged');
+            if (cardElement.classList.contains('enlarged')) {
+                cardElement.style.transform = 'rotateY(360deg) scale(1.5)';
+            } else {
+                cardElement.style.transform = 'rotateY(0) scale(1)';
+            }
+        }
+
+        function toggleCard2() {
+            const card2 = document.getElementById('card2');
+            card2.classList.toggle('enlarged');
+            if (card2.classList.contains('enlarged')) {
+                card2.style.transform = 'rotate(0) rotateY(360deg) scale(1.5)';
+            } else {
+                card2.style.transform = 'rotate(90deg) rotateY(0) scale(1)';
+            }
+
+        }
+
+        function senddata() {
+            tg.sendData(data_to_bot);
+        }
+    </script>
+</body>
+
+</html>
