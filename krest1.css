@@ -55,12 +55,14 @@ h1 {
 
 .deck1 {
     display: grid;
-    grid-template-columns: repeat(2, auto); /* или можно использовать 'max-content' */
+    grid-template-columns: repeat(2, auto);
+    /* или можно использовать 'max-content' */
     grid-template-rows: repeat(1, 1fr);
     gap: 10px;
     justify-items: center;
     align-items: center;
-    width: 100%; /* Уберите фиксированную ширину */
+    width: 100%;
+    /* Уберите фиксированную ширину */
     margin: 10px;
 }
 
@@ -90,7 +92,7 @@ h1 {
 
 .card {
     margin: 5px;
-    width: 8vh;
+    width: 9vh;
     /* height: 16.67vh; */
     background-color: #ECE3DD;
     border: 1px solid #ccc;
