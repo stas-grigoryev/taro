@@ -61,7 +61,7 @@ h1 {
     gap: 10px;
     justify-items: center;
     align-items: center;
-    width: 100%;
+    width: auto;
     /* Уберите фиксированную ширину */
     margin: 10px;
 }
