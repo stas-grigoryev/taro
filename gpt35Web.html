@@ -1,0 +1,34 @@
+      <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js"></script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://tg.dev/js/telegram-web-app.js"></script>
+    <script>
+      function setThemeClass() {
+        document.documentElement.className = Telegram.WebApp.colorScheme;
+      }
+      Telegram.WebApp.onEvent("themeChanged", setThemeClass);
+      setThemeClass();
+    </script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.2/libs/oversea/index.js"></script>
+  </head>
+  <body>
+    <script>
+      Telegram.WebApp.ready();
+      let tg = window.Telegram.WebApp;
+      tg.expand();
+
+	  new CozeWebSDK.WebChatClient({
+		config: {
+		  bot_id: '7389217860709122054',
+		},
+		componentProps: {
+		  title: 'Coze',
+		},
+	  });
+	</script>
+  </body>
+</html>	  
