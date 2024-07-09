@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таро Карты</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+    <h1>💤 Сонник 💤</h1>
+    <div class="input-container">
+        <textarea type="text" id="question" placeholder="Введите ваш вопрос к колоде"></textarea>
+        <button onclick="drawCards()" id="btn-cards">Вытащить карты</button>
+    </div>
+    
+    <div style="justify-content: center;">
+        <button onclick="senddata()" class="decode-button animation-class" id="decode" style="display: none;">Получить
+            расшифровку</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand()
+
+        function senddata() {
+            tg.sendData(data_to_bot);
+        }
+    </script>
+</body>
+
+</html>
